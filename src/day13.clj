@@ -1,6 +1,6 @@
 (ns day13
   (:require [clojure.string :as str])
-  (:use [clojure.data.priority-map :only [priority-map]]))
+  (:require [clojure.data.priority-map :as pm]))
 
 (defn open? [[x y] favourite]
   (let [num (+ (Math/pow x 2)
@@ -32,7 +32,7 @@
 (defn solve1
   "use dijkstra's algorithm to find shortes path from start to target"
   [start target favourite]
-  (loop [edges (priority-map start 0)
+  (loop [edges (pm/priority-map start 0)
          visited #{}]
     (let [xy (first (remove visited (keys edges)))]
       (if (= target xy)
@@ -43,7 +43,7 @@
                (conj visited xy))))))
 
 (defn solve2 [start favourite]
-  (loop [edges (priority-map start 0)
+  (loop [edges (pm/priority-map start 0)
          visited #{}]
     (let [cands (filter #(<= (second %) 50) edges)
           xy (first (remove visited (map first cands)))]
