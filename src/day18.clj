@@ -32,7 +32,7 @@
 (comment
   (solve "resources/day18-input.txt" 40)
   ;; correct answer 1956
-  (time (solve "resources/day18-input.txt" 400000))
+  (solve "resources/day18-input.txt" 400000)
   ;; correct answer 19995121
   )
 
