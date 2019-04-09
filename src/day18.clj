@@ -38,4 +38,4 @@
 
 (defn -main []
   (println "Part 1:" (solve "resources/day18-input.txt" 40))
-  (println "Part 1:" (solve "resources/day18-input.txt" 400000)))
+  (println "Part 2:" (solve "resources/day18-input.txt" 400000)))
