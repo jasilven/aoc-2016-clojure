@@ -39,4 +39,5 @@
   )
 
 (defn -main []
-  (println "Part 1:" (solve1 3014603)))
+  (println "Part 1:" (solve1 3014603))
+  (println "Part 2: You don't want to wait for this!"))
