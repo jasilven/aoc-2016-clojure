@@ -1,4 +1,7 @@
-.cpcache/*
-.lein-*
+.cpcache/**
+.idea/**
+.vscode/**
+.lein-**
+target/**
 .nrepl-port
-target/*
+.eastwood
