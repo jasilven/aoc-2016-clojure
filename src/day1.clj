@@ -31,9 +31,9 @@
 (defn path
   "seq of positions from [x1 y1] to [x2 y2] in stepping order and not including [x2 y2]"
   [[x1 y1] [x2 y2]]
-   (if (= x1 x2)
-     (for [y (range y1 y2 (if (> y2 y1) 1 -1))] (vector x1 y))
-     (for [x (range x1 x2 (if (> x2 x1) 1 -1))] (vector x y1))))
+  (if (= x1 x2)
+    (for [y (range y1 y2 (if (> y2 y1) 1 -1))] (vector x1 y))
+    (for [x (range x1 x2 (if (> x2 x1) 1 -1))] (vector x y1))))
 
 (defn solve2 [fname]
   (loop [[x y facing :as curpos] [0 0 \N]
