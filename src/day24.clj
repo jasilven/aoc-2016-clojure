@@ -27,17 +27,14 @@
        (into #{})))
 
 (defn steps [routemap [a b]]
-  (let [adj (adjacent routemap a)
-        adj+steps (->> (repeat (count adj) 1) (interleave adj) (partition 2))]
-    (loop [seen #{a}
-           unseen (into (pm/priority-map) adj+steps)]
-      (let [[xy steps] (first unseen)]
-        (if (= xy b) steps
-            (let [unseen (dissoc unseen xy)
-                  nexts (set/difference (adjacent routemap xy) seen)
-                  nexts+steps (->> (inc steps) (repeat (count nexts)) (interleave nexts))]
-              (recur (conj seen xy)
-                     (into unseen (partition 2 nexts+steps)))))))))
+  (loop [seen #{a}
+         unseen (pm/priority-map a 0)]
+    (let [[cur steps] (first unseen)]
+      (if (= cur b) steps
+          (let [unseen (dissoc unseen cur)
+                nexts (set/difference (adjacent routemap cur) seen)]
+            (recur (conj seen cur)
+                   (into unseen (zipmap nexts (repeat (inc steps))))))))))
 
 (def steps-memo (memoize steps))
 
@@ -46,26 +43,26 @@
        (map #(steps-memo routemap (sort %)))
        (reduce +)))
 
-(defn solve1 [fname]
-  (let [routemap (parse-routemap fname)]
-    (->> (all-routes routemap)
-         (map #(steps-count routemap %))
-         (apply min))))
+(defn solve1 [routemap]
+  (->> (all-routes routemap)
+       (map #(steps-count routemap %))
+       (apply min)))
 
-(defn solve2 [fname]
-  (let [routemap (parse-routemap fname)]
-    (->> (all-routes routemap)
-         (map #(conj % (first %)))
-         (map #(steps-count routemap %))
-         (apply min))))
+(defn solve2 [routemap]
+  (->> (all-routes routemap)
+       (map #(conj % (first %)))
+       (pmap #(steps-count routemap %))
+       (apply min)))
 
 (comment
-  (time (solve1 "resources/day24-input.txt"))
+  (time (solve1 (parse-routemap "resources/day24-input.txt")))
   ;; correct answer 460
-  (time (solve2 "resources/day24-input.txt"))
+  (time (solve2 (parse-routemap "resources/day24-input.txt")))
   ;; correct answer 668
   )
 
 (defn -main []
-  (println "Part 1:" (solve1 "resources/day24-input.txt"))
-  (println "Part 2:" (solve2 "resources/day24-input.txt")))
+  (let [routemap (parse-routemap "resources/day24-input.txt")]
+    (println "Part 1:" (solve1 routemap))
+    (println "Part 2:" (solve2 routemap))
+    (shutdown-agents)))
