@@ -24,9 +24,7 @@
               :result (+ result (* n len)))))
 
 (defn solve1 [line]
-  (loop [{:keys [line result] :as all}
-         {:line line
-          :result 0}]
+  (loop [{:keys [line result] :as all} {:line line :result 0}]
     (cond
       (empty? line) result
       (starts-with-marker? line) (recur (process-marker all))
