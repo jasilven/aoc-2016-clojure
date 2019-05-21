@@ -22,7 +22,7 @@
       (update-in program [:pointer] + (Integer/parseInt (last instruction))))))
 
 (defn execute [{:keys [regs pointer instructions] :as program}]
-  (let [instruction (into [] (re-seq #"\S+" (get instructions pointer)))]
+  (let [instruction (re-seq #"\S+" (get instructions pointer))]
     (condp = (first instruction)
       "cpy" (exe-cpy instruction program)
       "inc" (exe-fn instruction program inc)
