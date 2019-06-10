@@ -1,6 +1,5 @@
-(ns day1
-  (:require [clojure.string :as str]
-            [clojure.set :as set]))
+(ns day1 (:require [clojure.string :as str]
+                   [clojure.set :as set]))
 
 (defn fname->turns [fname]
   (for [move (str/split (str/trim (slurp fname)) #", ")]
@@ -21,7 +20,7 @@
     [\W \R] [x (- y steps) \N]))
 
 (defn solve1 [fname]
-  (loop [[x y facing :as curpos] [0 0 \N]
+  (loop [[x y _ :as curpos] [0 0 \N]
          [turn & turns] (fname->turns fname)]
     (if (nil? turn)
       (distance [0 0] [x y])
@@ -36,9 +35,8 @@
     (for [x (range x1 x2 (if (> x2 x1) 1 -1))] (vector x y1))))
 
 (defn solve2 [fname]
-  (loop [[x y facing :as curpos] [0 0 \N]
-         [turn & turns] (fname->turns fname)
-         seen #{}]
+  (loop [[x y _ :as curpos] [0 0 \N]
+         [turn & turns] (fname->turns fname) seen #{}]
     (let [[x2 y2 _ :as npos] (next-pos curpos turn)
           steps (path [x y] [x2 y2])]
       (if-let [seen-pos (first (filter #(contains? seen %) steps))]
@@ -49,7 +47,7 @@
 
 (comment
   (solve1 "resources/day1-input.txt")
-  ;; correct answer 231
+ ;; correct answer 231
   (solve2 "resources/day1-input.txt")
   ;; correct answer 147
   )

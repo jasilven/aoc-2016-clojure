@@ -1,6 +1,6 @@
 (ns day1-test
-  (:require [day1 :refer :all]
-            [clojure.test :refer :all]))
+  (:require [day1 :refer [solve1 next-pos]]
+            [clojure.test :refer [deftest testing is]]))
 
 (deftest day1-test
   (testing "part 1 next-pos"
@@ -21,5 +21,3 @@
     (is (= 2 (solve1 "resources/day1-test-input2.txt")))
     (is (= 0 (solve1 "resources/day1-test-input4.txt")))
     (is (= 5 (solve1 "resources/day1-test-input3.txt")))))
-
-

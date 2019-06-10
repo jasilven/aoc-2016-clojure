@@ -1,6 +1,6 @@
 (ns day8-test
-  (:require [day8 :refer :all]
-            [clojure.test :refer :all]))
+  (:require [day8 :refer [solve1]]
+            [clojure.test :refer [deftest testing is]]))
 
 (deftest day8-test
   (testing "part 1"

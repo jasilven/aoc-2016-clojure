@@ -1,6 +1,6 @@
 (ns day5-test
-  (:require [day5 :refer :all]
-            [clojure.test :refer :all]))
+  (:require [day5 :refer [solve1 solve2]]
+            [clojure.test :refer [deftest testing is]]))
 
 (deftest day5-test
   (testing "part 1"
