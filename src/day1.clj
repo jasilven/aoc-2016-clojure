@@ -1,5 +1,4 @@
-(ns day1 (:require [clojure.string :as str]
-                   [clojure.set :as set]))
+(ns day1 (:require [clojure.string :as str]))
 
 (defn fname->turns [fname]
   (for [move (str/split (str/trim (slurp fname)) #", ")]
@@ -47,7 +46,7 @@
 
 (comment
   (solve1 "resources/day1-input.txt")
- ;; correct answer 231
+  ;; correct answer 231
   (solve2 "resources/day1-input.txt")
   ;; correct answer 147
   )
