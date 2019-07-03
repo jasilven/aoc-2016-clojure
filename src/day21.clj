@@ -44,7 +44,7 @@
     (str/join (concat (first spl2) (list ch) (second spl2)))))
 
 (defn parse-cmds [fname]
-  (with-open [r (io/reader fname) ]
+  (with-open [r (io/reader fname)]
     (->> (for [l (line-seq r)]
            (condp = (str/join " " (take 2 (str/split l #" ")))
              "swap position" {:command swap-pos
@@ -75,7 +75,7 @@
 (defn solve2 [cmds s1 s2]
   (->> (combo/permutations s1)
        (map #(apply str %))
-       (map #(vector % (solve1 cmds %)))
+       (pmap #(vector % (solve1 cmds %)))
        (drop-while #(not= (second %) s2))
        ffirst))
 
